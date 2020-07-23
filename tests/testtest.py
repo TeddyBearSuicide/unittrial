@@ -1,12 +1,18 @@
 import asyncio
 
 from unittrial.assertions import assertEquals, expectFailure
+from unittrial.logger import logger
 from unittrial.test import TestCase, run_tests
 
 
 class Test(TestCase):
 
     def failed_test(self):
+        logger.info("Inside failed_test")
+        logger.debug("Debug")
+        logger.warning("Warning")
+        logger.error("Error")
+        logger.critical("Critical")
         assertEquals(1, 2)
 
     async def successful_test(self):

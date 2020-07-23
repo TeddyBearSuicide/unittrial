@@ -43,18 +43,18 @@ class Console:
 
     @staticmethod
     def writeError(msg):
-        Console.write(f"{Console.indention_char * Console.indention}{Console.BrightRed}{msg}")
+        Console.write(f"{Console.BrightRed}{msg}")
 
     @staticmethod
     def formatStatus(msg: str, status: str, width=80):
         msgCopy = Console.ansiRegex.sub("", msg.strip())
         statusCopy = Console.ansiRegex.sub("", status.strip())
         indention = Console.indention_char * Console.indention
-        return Console.BrightWhite + indention + msg + (" " * (width - (len(msgCopy) + len(statusCopy) + len(indention)))) + f"{Console.BrightWhite}[{status}{Console.BrightWhite}]"
+        return Console.BrightWhite + msg + (" " * (width - (len(msgCopy) + len(statusCopy) + len(indention)))) + f"{Console.BrightWhite}[{status}{Console.BrightWhite}]"
 
     @staticmethod
     def update(msg):
-        sys.stdout.write('\r' + msg + Console.Reset)
+        sys.stdout.write('\r' + (Console.indention_char * Console.indention) + msg + Console.Reset)
 
     @staticmethod
     def updateStatus(msg: str, status, width=75):
@@ -62,8 +62,13 @@ class Console:
 
     @staticmethod
     def write(msg):
-        sys.stdout.write(('\n' if Console._primed else '') + msg + Console.Reset)
+        sys.stdout.write(('\n' if Console._primed else '') + (Console.indention_char * Console.indention) + msg + Console.Reset)
         Console._primed = True
+
+    @staticmethod
+    def writeLines(msgs: list):
+        for msg in msgs:
+            Console.write(msg)
 
     @staticmethod
     def writeStatus(msg: str, status, width=75):

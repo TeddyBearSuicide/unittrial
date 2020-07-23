@@ -1,6 +1,7 @@
 import asyncio
 import inspect
 
+from unittrial.logger import logger
 from unittrial.console import Console
 from typing import Callable, List, Union
 
@@ -9,7 +10,11 @@ _current_cls = None
 
 
 class TestConfig(object):
+    class LogConfig:
+        format: str = ""
+
     stopOnFail = False
+    logger: LogConfig = LogConfig()
 
 
 _config: TestConfig
@@ -85,8 +90,14 @@ async def _check_and_run(test: Union[Callable, TestCase]):
             if _print:
                 Console.updateStatus(f"{test.__name__}", f"{Console.BrightGreen}Success")
 
+                logger._indent_and_print()
+
+
         except AssertionError as e:
             Console.updateStatus(f"{test.__name__}", f"{Console.BrightRed}Fail")
+
+            logger._indent_and_print()
+
             Console.indention += 1
             Console.writeError(str(e))
             Console.indention -= 1
@@ -96,6 +107,11 @@ async def _check_and_run(test: Union[Callable, TestCase]):
 
         except Exception as e:
             print(e)
+
+        finally:
+            Console.indention += 1
+            Console.writeLines(logger.getLog())
+            Console.indention -= 1
 
         return result
 
