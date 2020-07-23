@@ -92,7 +92,7 @@ async def _check_and_run(test: Union[Callable, TestCase]):
             Console.indention -= 1
 
             if _config.stopOnFail:
-                raise Exception()
+                raise KeyboardInterrupt()
 
         except Exception as e:
             print(e)
@@ -121,6 +121,6 @@ def run_tests(
 
     try:
         asyncio.run(async_start())
-    except Exception:
+    except KeyboardInterrupt:
         pass
 
