@@ -1,4 +1,5 @@
-.idea
 build
 dist
 unittrial.egg-info
+**/*.pyc
+.idea/

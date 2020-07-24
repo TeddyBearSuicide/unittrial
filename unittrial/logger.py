@@ -20,30 +20,30 @@ class logger(object):
     @staticmethod
     def critical(msg):
         logger._log.append(
-            f"{Console.BrightWhite}[{Console.BrightWhite + Console.BackgroundRed}CRITICAL{Console.Reset}{Console.BrightWhite}] {msg}"
+            f"{Console.BrightWhite}[{Console.BrightWhite + Console.BackgroundRed}CRITICAL{Console.Reset}{Console.BrightWhite}] {str(msg)}"
         )
 
     @staticmethod
     def debug(msg):
         logger._log.append(
-            f"{Console.BrightWhite}[{Console.BrightCyan}DEBUG{Console.BrightWhite}] {msg}"
+            f"{Console.BrightWhite}[{Console.BrightCyan}DEBUG{Console.BrightWhite}] {str(msg)}"
         )
 
     @staticmethod
     def error(msg):
         logger._log.append(
-            f"{Console.BrightWhite}[{Console.BrightRed}ERROR{Console.BrightWhite}] {msg}"
+            f"{Console.BrightWhite}[{Console.BrightRed}ERROR{Console.BrightWhite}] {str(msg)}"
         )
 
     @staticmethod
     def info(msg):
         logger._log.append(
-            f"{Console.BrightWhite}[{Console.BrightBlue}INFO{Console.BrightWhite}] {msg}"
+            f"{Console.BrightWhite}[{Console.BrightBlue}INFO{Console.BrightWhite}] {str(msg)}"
         )
 
     @staticmethod
     def warning(msg):
         logger._log.append(
-            f"{Console.BrightWhite}[{Console.BrightYellow}WARNING{Console.BrightWhite}] {msg}"
+            f"{Console.BrightWhite}[{Console.BrightYellow}WARNING{Console.BrightWhite}] {str(msg)}"
         )
 

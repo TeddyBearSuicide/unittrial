@@ -3,10 +3,7 @@ import inspect
 
 from unittrial.logger import logger
 from unittrial.console import Console
-from typing import Callable, List, Union
-
-
-_current_cls = None
+from typing import Callable, List, Union, Coroutine
 
 
 class TestConfig(object):
@@ -49,16 +46,14 @@ class TestCase(object):
         await _check_and_run(self.teardown_class)
 
 
-def _global_setup_wrapper(global_setup):
-    def _global_setup():
-        return global_setup()
-    return _global_setup
+def _global_setup_wrapper(global_setup: Union[Callable, Coroutine]):
+    global_setup.__name__ = "_global_setup"
+    return global_setup
 
 
-def _global_teardown_wrapper(global_teardown):
-    def _global_teardown():
-        return global_teardown()
-    return _global_teardown
+def _global_teardown_wrapper(global_teardown: Union[Callable, Coroutine]):
+    global_teardown.__name__ = "_global_teardown"
+    return global_teardown
 
 
 async def _check_and_run(test: Union[Callable, TestCase]):
