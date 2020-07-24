@@ -92,7 +92,6 @@ async def _check_and_run(test: Union[Callable, TestCase]):
 
                 logger._indent_and_print()
 
-
         except AssertionError as e:
             Console.updateStatus(f"{test.__name__}", f"{Console.BrightRed}Fail")
 
