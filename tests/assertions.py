@@ -1,93 +1,93 @@
-from unittrial.assertions import assertEquals, assertGreater, assertGreaterOrEqual, assertIsInstance, assertIsNone, \
-    assertIsNotNone, assertLesser, assertLesserOrEqual, expectFailure
+from unittrial.assertions import assert_equals, assert_greater, assert_greater_or_equal, assert_is_instance, \
+    assert_is_none, assert_is_not_none, assert_lesser, assert_lesser_or_equal, expect_failure
 from unittrial.test import TestCase
 
 
 class AssertionTests(TestCase):
-    def assertEquals(self):
-        assertEquals(1, 1)
+    def assert_equals(self):
+        assert_equals(1, 1)
 
         try:
-            assertEquals(1, 2)
+            assert_equals(1, 2)
         except AssertionError:
             pass
 
-    def assertGreater(self):
-        assertGreater(2, 1)
+    def assert_greater(self):
+        assert_greater(2, 1)
 
         try:
-            assertGreater(1, 2)
+            assert_greater(1, 2)
         except AssertionError:
             pass
 
-    def assertGreaterOrEqual(self):
-        assertGreaterOrEqual(2, 2)
-        assertGreaterOrEqual(3, 2)
+    def assert_greater_or_equal(self):
+        assert_greater_or_equal(2, 2)
+        assert_greater_or_equal(3, 2)
 
         try:
-            assertGreaterOrEqual(1, 2)
+            assert_greater_or_equal(1, 2)
         except AssertionError:
             pass
 
-    def assertIsInstance(self):
-        assertIsInstance("", str)
+    def assert_is_instance(self):
+        assert_is_instance("", str)
 
         try:
-            assertIsInstance(1, str)
+            assert_is_instance(1, str)
         except AssertionError:
             pass
 
-    def assertIsNone(self):
-        assertIsNone(None)
+    def assert_is_none(self):
+        assert_is_none(None)
 
         try:
-            assertIsNone(1)
+            assert_is_none(1)
         except AssertionError:
             pass
 
-    def assertIsNotNone(self):
-        assertIsNotNone(2)
+    def assert_is_not_none(self):
+        assert_is_not_none(2)
 
         try:
-            assertIsNotNone(None)
+            assert_is_not_none(None)
         except AssertionError:
             pass
 
-    def assertLesser(self):
-        assertLesser(1, 2)
+    def assert_lesser(self):
+        assert_lesser(1, 2)
 
         try:
-            assertLesser(2, 2)
+            assert_lesser(2, 2)
         except AssertionError:
             pass
 
         try:
-            assertLesser(2, 1)
+            assert_lesser(2, 1)
         except AssertionError:
             pass
 
-    def assertLesserOrEqual(self):
-        assertLesserOrEqual(1, 1)
-        assertLesserOrEqual(1, 2)
+    def assert_lesser_or_equal(self):
+        assert_lesser_or_equal(1, 1)
+        assert_lesser_or_equal(1, 2)
 
         try:
-            assertLesserOrEqual(3, 2)
+            assert_lesser_or_equal(3, 2)
         except AssertionError:
             pass
 
-    @expectFailure(IndexError)
-    def expectFailure(self):
+    @expect_failure(IndexError)
+    def expect_failure(self):
         list()[1]
 
     def __init__(self):
         self.tests = [
-            self.assertEquals,
-            self.assertGreater,
-            self.assertGreaterOrEqual,
-            self.assertIsInstance,
-            self.assertIsNone,
-            self.assertIsNotNone,
-            self.assertLesser,
-            self.assertLesserOrEqual,
-            self.expectFailure
+            self.assert_equals,
+            self.assert_greater,
+            self.assert_greater_or_equal,
+            self.assert_is_instance,
+            self.assert_is_none,
+            self.assert_is_not_none,
+            self.assert_lesser,
+            self.assert_lesser_or_equal,
+            self.expect_failure
         ]
