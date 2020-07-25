@@ -18,6 +18,10 @@ class logger(object):
         return logs
 
     @staticmethod
+    def hasAnyLog():
+        return len(logger._log) > 0
+
+    @staticmethod
     def critical(msg):
         logger._log.append(
             f"{Console.BrightWhite}[{Console.BrightWhite + Console.BackgroundRed}CRITICAL{Console.Reset}{Console.BrightWhite}] {str(msg)}"
