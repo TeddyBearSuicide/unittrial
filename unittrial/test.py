@@ -3,7 +3,7 @@ import inspect
 
 from unittrial.logger import logger
 from unittrial.console import Console
-from typing import Callable, List, Union, Coroutine
+from typing import Callable, List, Union, Coroutine, Any
 
 
 class TestConfig(object):
@@ -14,7 +14,7 @@ class TestConfig(object):
     logger: LogConfig = LogConfig()
 
 
-_config: TestConfig
+config: TestConfig
 
 
 class TestCase(object):
@@ -46,18 +46,18 @@ class TestCase(object):
         await _check_and_run(self.teardown_class)
 
 
-def _global_setup_wrapper(global_setup: Union[Callable, Coroutine]) -> Union[Callable, Coroutine]:
+def _global_setup_wrapper(global_setup: Union[Callable[..., Any], Callable[..., Coroutine]]) -> Union[Callable[..., Any], Callable[..., Coroutine]]:
     global_setup.__name__ = "_global_setup"
     return global_setup
 
 
-def _global_teardown_wrapper(global_teardown: Union[Callable, Coroutine]) -> Union[Callable, Coroutine]:
+def _global_teardown_wrapper(global_teardown: Union[Callable[..., Any], Callable[..., Coroutine]]) -> Union[Callable[..., Any], Callable[..., Coroutine]]:
     global_teardown.__name__ = "_global_teardown"
     return global_teardown
 
 
 async def _check_and_run(test: Union[Callable, TestCase]):
-    global _config
+    global config
 
     if isinstance(test, TestCase):
         Console.writeStatus(f"{test.__class__.__name__}", f"{Console.BrightBlue}{len(test.tests)}")
@@ -82,11 +82,6 @@ async def _check_and_run(test: Union[Callable, TestCase]):
                 result = await test()
             else:
                 result = test()
-
-            if not _special_func:
-                Console.updateStatus(f"{test.__name__}", f"{Console.BrightGreen}Success")
-
-                logger._indent_and_print()
 
         except Exception as e:
             raised_exception = e
@@ -114,7 +109,7 @@ async def _check_and_run(test: Union[Callable, TestCase]):
 
                 logger._indent_and_print()
 
-            if _config.stopOnFail:
+            if config.stopOnFail:
                 raise KeyboardInterrupt()
 
         return result
@@ -122,9 +117,9 @@ async def _check_and_run(test: Union[Callable, TestCase]):
 
 def run_tests(
         tests: List[Union[Callable, TestCase]],
-        config: TestConfig = TestConfig(),
-        global_setup: Union[Callable] = lambda: None,
-        global_teardown: Union[Callable] = lambda: None):
+        testconfig: TestConfig = TestConfig(),
+        global_setup: Union[Callable[..., Any], Callable[..., Coroutine]] = lambda: None,
+        global_teardown: Union[Callable[..., Any], Callable[..., Coroutine]] = lambda: None):
 
     async def async_start():
 
@@ -136,8 +131,8 @@ def run_tests(
 
         await _check_and_run(_global_teardown_wrapper(global_teardown))
 
-    global _config
-    _config = config
+    global config
+    config = testconfig
 
     try:
         asyncio.run(async_start())

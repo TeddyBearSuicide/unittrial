@@ -1,22 +1,22 @@
 import inspect
 
 
-def assertEquals(a, b):
+def assert_equals(a, b):
     if a != b:
-        raise AssertionError(f"Expected: {a} | Got: {b}")
+        raise AssertionError(f"Expected: {b} | Got: {a}")
 
 
-def assertGreater(a, b):
+def assert_greater(a, b):
     if a <= b:
-        raise AssertionError(f"Expected: Greater than {a} | Got: {b}")
+        raise AssertionError(f"Expected: Greater than {b} | Got: {a}")
 
 
-def assertGreaterOrEqual(a, b):
+def assert_greater_or_equal(a, b):
     if a < b:
-        raise AssertionError(f"Expected: Greater than or equal {a} | Got: {b}")
+        raise AssertionError(f"Expected: Greater than or equal {b} | Got: {a}")
 
 
-def assertIsInstance(a, t):
+def assert_is_instance(a, t):
     if a.__class__ == type:
         raise AssertionError(f"Type of {a} was passed but an instance is required.")
 
@@ -24,27 +24,27 @@ def assertIsInstance(a, t):
         raise AssertionError(f"Expected: Instance of {t} | Got: {a} Type: {type(a)}")
 
 
-def assertIsNone(a):
+def assert_is_none(a):
     if a is not None:
         raise AssertionError(f"Expected: None | Got: {a} Type: {type(a)}")
 
 
-def assertIsNotNone(a):
+def assert_is_not_none(a):
     if a is None:
         raise AssertionError(f"Expected: Any | Got: None")
 
 
-def assertLesser(a, b):
+def assert_lesser(a, b):
     if a >= b:
-        raise AssertionError(f"Expected: Lesser than {a} | Got: {b}")
+        raise AssertionError(f"Expected: Lesser than {b} | Got: {a}")
 
 
-def assertLesserOrEqual(a, b):
+def assert_lesser_or_equal(a, b):
     if a > b:
-        raise AssertionError(f"Expected: Lesser than or equal {a} | Got: {b}")
+        raise AssertionError(f"Expected: Lesser than or equal {b} | Got: {a}")
 
 
-def expectFailure(exception=Exception):
+def expect_failure(exception=Exception):
     def inner(test):
         async def wrapper(self=None):
             raised = None
