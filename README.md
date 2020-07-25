@@ -1,2 +1,0 @@
-# unittrial
-Python Test Framework
