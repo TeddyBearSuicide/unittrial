@@ -1,10 +1,10 @@
+from unittrial import TestCase
 from unittrial.assertions import assert_equals, assert_greater, assert_greater_or_equal, assert_is_instance, \
     assert_is_none, assert_is_not_none, assert_lesser, assert_lesser_or_equal, expect_failure
-from unittrial.test import TestCase
 
 
 class AssertionTests(TestCase):
-    def assert_equals(self):
+    async def assert_equals(self):
         assert_equals(1, 1)
 
         try:
@@ -12,7 +12,7 @@ class AssertionTests(TestCase):
         except AssertionError:
             pass
 
-    def assert_greater(self):
+    async def assert_greater(self):
         assert_greater(2, 1)
 
         try:
@@ -20,7 +20,7 @@ class AssertionTests(TestCase):
         except AssertionError:
             pass
 
-    def assert_greater_or_equal(self):
+    async def assert_greater_or_equal(self):
         assert_greater_or_equal(2, 2)
         assert_greater_or_equal(3, 2)
 
