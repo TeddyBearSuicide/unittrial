@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="unittrial",
-    version="0.2.1",
+    version="0.2.2",
     author="TeddyBearSuicide",
     description="Python Test Framework",
     url="https://github.com/TeddyBearSuicide/unittrial",

@@ -1,5 +1,6 @@
 import asyncio
 import inspect
+from asyncio import Future
 from asyncio.exceptions import InvalidStateError
 from typing import Any, Callable, Coroutine, List, Union
 
@@ -80,18 +81,25 @@ def _global_teardown_wrapper(global_teardown: Union[Callable[..., Any], Callable
     return global_teardown
 
 
-async def run_blocking(call: Coroutine):
+async def run_blocking(call: Union[Coroutine, Future]):
     loop = asyncio.get_event_loop()
     fut = loop.create_future()
 
     async def _blocking():
-        fut.set_result(await call)
+        try:
+            fut.set_result(await call)
+        except Exception as e:
+            fut.set_result(e)
 
     loop.create_task(_blocking())
 
     while True:
         try:
-            return fut.result()
+            result = fut.result()
+            if isinstance(result, Exception):
+                raise result
+            else:
+                return result
         except InvalidStateError:
             await asyncio.sleep(0.1)
 
