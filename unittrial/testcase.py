@@ -1,6 +1,6 @@
-from typing import Callable, List
+import unittrial
 
-from unittrial import _check_and_run
+from typing import Callable, List
 
 
 class TestCase(object):
@@ -19,15 +19,15 @@ class TestCase(object):
         pass
 
     async def __call__(self, *args, **kwargs):
-        await _check_and_run(self.setup_class)
+        await unittrial._check_and_run(self.setup_class)
 
         for test in self.tests:
 
-            await _check_and_run(self.setup)
+            await unittrial._check_and_run(self.setup)
 
-            await _check_and_run(test)
+            await unittrial._check_and_run(test)
 
-            await _check_and_run(self.teardown)
+            await unittrial._check_and_run(self.teardown)
 
-        await _check_and_run(self.teardown_class)
+        await unittrial._check_and_run(self.teardown_class)
 
