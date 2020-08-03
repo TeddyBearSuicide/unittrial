@@ -6,6 +6,11 @@ def assert_equals(a, b):
         raise AssertionError(f"Expected: {b} | Got: {a}")
 
 
+def assert_false(a):
+    if a:
+        raise AssertionError(f"Expected: False | Got: {a}")
+
+
 def assert_greater(a, b):
     if a <= b:
         raise AssertionError(f"Expected: Greater than {b} | Got: {a}")
@@ -42,6 +47,11 @@ def assert_lesser(a, b):
 def assert_lesser_or_equal(a, b):
     if a > b:
         raise AssertionError(f"Expected: Lesser than or equal {b} | Got: {a}")
+
+
+def assert_true(a):
+    if not a:
+        raise AssertionError(f"Expected: True | Got: {a}")
 
 
 def expect_failure(exception=Exception):

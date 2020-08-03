@@ -1,10 +1,11 @@
 from unittrial import TestCase
 from unittrial.assertions import assert_equals, assert_greater, assert_greater_or_equal, assert_is_instance, \
-    assert_is_none, assert_is_not_none, assert_lesser, assert_lesser_or_equal, expect_failure
+    assert_is_none, assert_is_not_none, assert_lesser, assert_lesser_or_equal, expect_failure, assert_false, assert_true
 
 
 class AssertionTests(TestCase):
-    async def assert_equals(self):
+
+    def assert_equals(self):
         assert_equals(1, 1)
 
         try:
@@ -12,7 +13,15 @@ class AssertionTests(TestCase):
         except AssertionError:
             pass
 
-    async def assert_greater(self):
+    def assert_false(self):
+        assert_false(False)
+
+        try:
+            assert_false(True)
+        except AssertionError:
+            pass
+
+    def assert_greater(self):
         assert_greater(2, 1)
 
         try:
@@ -20,7 +29,7 @@ class AssertionTests(TestCase):
         except AssertionError:
             pass
 
-    async def assert_greater_or_equal(self):
+    def assert_greater_or_equal(self):
         assert_greater_or_equal(2, 2)
         assert_greater_or_equal(3, 2)
 
@@ -75,6 +84,14 @@ class AssertionTests(TestCase):
         except AssertionError:
             pass
 
+    def assert_true(self):
+        assert_true(True)
+
+        try:
+            assert_true(False)
+        except AssertionError:
+            pass
+
     @expect_failure(IndexError)
     def expect_failure(self):
         list()[1]
@@ -82,6 +99,7 @@ class AssertionTests(TestCase):
     def __init__(self):
         self.tests = [
             self.assert_equals,
+            self.assert_false,
             self.assert_greater,
             self.assert_greater_or_equal,
             self.assert_is_instance,
@@ -89,5 +107,6 @@ class AssertionTests(TestCase):
             self.assert_is_not_none,
             self.assert_lesser,
             self.assert_lesser_or_equal,
+            self.assert_true,
             self.expect_failure
         ]
